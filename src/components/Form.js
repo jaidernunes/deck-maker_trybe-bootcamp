@@ -106,7 +106,7 @@ export default class Form extends React.Component {
           type="button"
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
-          onChange={ onSaveButtonClick }
+          onClick={ onSaveButtonClick }
         >
           Salvar
         </button>
