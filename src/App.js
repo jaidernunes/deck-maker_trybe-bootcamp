@@ -19,11 +19,11 @@ class App extends React.Component {
   }
 
   handleChangeSetState = ({ target }) => {
-    const { id } = target;
+    const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
     this.setState({
-      [id]: value,
+      [name]: value,
     });
   };
 
@@ -43,14 +43,14 @@ class App extends React.Component {
       <div>
         <h1>Tryunfo</h1>
         <Form
-          // cardName={ cardName }
-          // cardDescription={ cardDescription }
-          // cardAttr1={ cardAttr1 }
-          // cardAttr2={ cardAttr2 }
-          // cardAttr3={ cardAttr3 }
-          // cardImage={ cardImage }
-          // cardRare={ cardRare }
-          // cardTrunfo={ cardTrunfo }
+          cardName={ cardName }
+          cardDescription={ cardDescription }
+          cardAttr1={ cardAttr1 }
+          cardAttr2={ cardAttr2 }
+          cardAttr3={ cardAttr3 }
+          cardImage={ cardImage }
+          cardRare={ cardRare }
+          cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ false } // button to do
           onInputChange={ this.handleChangeSetState }
           onSaveButtonClick={ this.handleChangeSetState }
