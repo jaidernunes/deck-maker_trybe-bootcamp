@@ -63,6 +63,9 @@ export default class Form extends React.Component {
             name="cardAttr1"
             data-testid="attr1-input"
             type="number"
+            // min="0"
+            // max="90"
+            // step="1"
             value={ cardAttr1 }
             onChange={ onInputChange }
           />
@@ -73,6 +76,9 @@ export default class Form extends React.Component {
             name="cardAttr2"
             data-testid="attr2-input"
             type="number"
+            // min="0"
+            // max="90"
+            // step="1"
             value={ cardAttr2 }
             onChange={ onInputChange }
           />
@@ -84,6 +90,9 @@ export default class Form extends React.Component {
             data-testid="attr3-input"
             type="number"
             value={ cardAttr3 }
+            // min="0"
+            // max="90"
+            // step="1"
             onChange={ onInputChange }
           />
         </label>
@@ -122,7 +131,7 @@ export default class Form extends React.Component {
         </label>
         <button
           type="button"
-          name="saveButon"
+          name="salvar"
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }
