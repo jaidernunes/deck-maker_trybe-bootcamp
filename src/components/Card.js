@@ -19,7 +19,7 @@ export default class Card extends React.Component {
     };
 
     return (
-      <>
+      <div className="cardPreview">
         <h1 data-testid="name-card">{cardName}</h1>
         <img data-testid="image-card" src={ cardImage } alt={ cardName } />
         <p data-testid="description-card">{cardDescription}</p>
@@ -28,7 +28,7 @@ export default class Card extends React.Component {
         <h5 data-testid="attr3-card">{cardAttr3}</h5>
         <h3 data-testid="rare-card">{cardRare}</h3>
         {checkTrunfo(cardTrunfo)}
-      </>
+      </div>
     );
   }
 }

@@ -15,6 +15,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
+      deck: [],
     };
   }
 
@@ -60,6 +61,51 @@ class App extends React.Component {
     return (Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3) > maxAttrSum);
   };
 
+  newCardObj = () => {
+    const { state } = this;
+    const { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      // deck,
+    } = state;
+    // const { name } = target;
+    // const value = target.value;
+
+    const cardObj = {
+      cardName: [cardName],
+      cardDescription: [cardDescription],
+      cardAttr1: [cardAttr1],
+      cardAttr2: [cardAttr2],
+      cardAttr3: [cardAttr3],
+      cardImage: [cardImage],
+      cardRare: [cardRare],
+      cardTrunfo: [cardTrunfo],
+    };
+
+    this.setState((prevState) => ({
+      deck: [...prevState.deck, cardObj],
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+    }));
+  };
+
+  // addNewItem = () => {
+  // this.setState((prevState) => ({
+  //   cart: [...prevState.cart, prevState.input],
+  // }));
+  // };
+
   render() {
     const { state } = this;
     const { cardName,
@@ -70,37 +116,41 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      // deck,
     } = state;
     const isSaveDisabled = this.validateSave(this);
-    console.log(isSaveDisabled);
+    // const saveNewCard = this.newCardObj(this);
+    // console.log(isSaveDisabled);
 
     return (
-      <div>
+      <div className="mainContainer">
         <h1>Tryunfo</h1>
-        <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          isSaveButtonDisabled={ isSaveDisabled } // button to do
-          onInputChange={ this.handleChangeSetState }
-          onSaveButtonClick={ () => console.log('clicked save') }
+        <div className="horizontalDisplay">
+          <Form
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            isSaveButtonDisabled={ isSaveDisabled } // button to do
+            onInputChange={ this.handleChangeSetState }
+            onSaveButtonClick={ this.newCardObj }
 
-        />
-        <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-        />
+          />
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
+        </div>
       </div>
     );
   }
