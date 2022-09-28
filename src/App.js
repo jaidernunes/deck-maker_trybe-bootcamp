@@ -15,6 +15,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
+      hasTrunfo: false,
       deck: [],
     };
   }
@@ -42,7 +43,6 @@ class App extends React.Component {
     const maxAttr = 90;
     const maxAttrSum = 210;
 
-    // let isDisabled = true;
     // check strings
     if (cardName.trim().length === 0
     || cardDescription.trim().length === 0
@@ -51,6 +51,7 @@ class App extends React.Component {
       return true;
     }
 
+    // check numbers
     if (cardAttr1 > maxAttr || cardAttr1 < 0
       || cardAttr2 > maxAttr || cardAttr2 < 0
       || cardAttr3 > maxAttr || cardAttr3 < 0
@@ -58,9 +59,11 @@ class App extends React.Component {
       return true;
     }
 
+    // check sum
     return (Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3) > maxAttrSum);
   };
 
+  // create new card and put in deck Arr - deck state not read????
   newCardObj = () => {
     const { state } = this;
     const { cardName,
@@ -71,10 +74,9 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      // hasTrunfo,
       // deck,
     } = state;
-    // const { name } = target;
-    // const value = target.value;
 
     const cardObj = {
       cardName: [cardName],
@@ -87,6 +89,17 @@ class App extends React.Component {
       cardTrunfo: [cardTrunfo],
     };
 
+    const checkTrunfo = () => {
+      if (cardTrunfo === true) {
+        this.setState({
+          hasTrunfo: true,
+        });
+        return true;
+      }
+    };
+
+    const hadTrunfo = checkTrunfo();
+
     this.setState((prevState) => ({
       deck: [...prevState.deck, cardObj],
       cardName: '',
@@ -97,14 +110,10 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
+      hasTrunfo: hadTrunfo,
     }));
+    // console.log(prevState.hasTrunfo);
   };
-
-  // addNewItem = () => {
-  // this.setState((prevState) => ({
-  //   cart: [...prevState.cart, prevState.input],
-  // }));
-  // };
 
   render() {
     const { state } = this;
@@ -116,11 +125,9 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // deck,
+      hasTrunfo,
     } = state;
     const isSaveDisabled = this.validateSave(this);
-    // const saveNewCard = this.newCardObj(this);
-    // console.log(isSaveDisabled);
 
     return (
       <div className="mainContainer">
@@ -135,10 +142,10 @@ class App extends React.Component {
             cardImage={ cardImage }
             cardRare={ cardRare }
             cardTrunfo={ cardTrunfo }
+            hasTrunfo={ hasTrunfo }
             isSaveButtonDisabled={ isSaveDisabled } // button to do
             onInputChange={ this.handleChangeSetState }
             onSaveButtonClick={ this.newCardObj }
-
           />
           <Card
             cardName={ cardName }

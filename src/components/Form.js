@@ -2,23 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class Form extends React.Component {
-  // constructor() {
-  //   super();
-
-  //   this.state = {
-
-  //   };
-
-  //   this.handleChange = this.handleChange.bind(this);
-  // }
-
-  // handleChange({ target }) {
-  //   const { name, value } = target;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // }
-
   render() {
     const {
       cardName,
@@ -29,11 +12,14 @@ export default class Form extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
+      // alreadyTrunfo,
     } = this.props;
+    // const { state } = this;
+
     return (
       <form className="form">
         <label htmlFor="name-input">
@@ -119,7 +105,9 @@ export default class Form extends React.Component {
             <option value="muito raro">muito raro</option>
           </select>
         </label>
-        <label htmlFor="trunfo-input">
+
+        {/* // hide if already have one */}
+        {/* <label htmlFor="trunfo-input">
           Super Trunfo:
           <input
             type="checkbox"
@@ -128,7 +116,22 @@ export default class Form extends React.Component {
             checked={ cardTrunfo }
             onChange={ onInputChange }
           />
-        </label>
+        </label> */}
+        { (hasTrunfo === true)
+          ? <h5>Você já tem um Super Trunfo em seu baralho</h5>
+          : (
+            <label htmlFor="trunfo-input">
+              Super Trunfo:
+              <input
+                type="checkbox"
+                name="cardTrunfo"
+                data-testid="trunfo-input"
+                checked={ cardTrunfo }
+                onChange={ onInputChange }
+              />
+            </label>
+          )}
+
         <button
           type="button"
           name="salvar"
@@ -152,7 +155,8 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  // hasTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
+  // alreadyTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
