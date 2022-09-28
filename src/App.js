@@ -98,7 +98,7 @@ class App extends React.Component {
       }
     };
 
-    const hadTrunfo = checkTrunfo();
+    // const hadTrunfo = checkTrunfo();
 
     this.setState((prevState) => ({
       deck: [...prevState.deck, cardObj],
@@ -110,7 +110,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
-      hasTrunfo: hadTrunfo,
+      hasTrunfo: checkTrunfo(),
     }));
     // console.log(prevState.hasTrunfo);
   };
@@ -126,6 +126,7 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       hasTrunfo,
+      deck,
     } = state;
     const isSaveDisabled = this.validateSave(this);
 
@@ -158,6 +159,29 @@ class App extends React.Component {
             cardTrunfo={ cardTrunfo }
           />
         </div>
+        <h3>Meu Deck:</h3>
+        {/* <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          /> */}
+        {deck.map((cardProps) => (
+          <Card
+            key={ cardProps.cardName }
+            cardName={ cardProps.cardName }
+            cardDescription={ cardProps.cardDescription }
+            cardAttr1={ cardProps.cardAttr1 }
+            cardAttr2={ cardProps.cardAttr2 }
+            cardAttr3={ cardProps.cardAttr3 }
+            cardImage={ cardProps.cardImage }
+            cardRare={ cardProps.cardRare }
+            cardTrunfo={ cardProps.cardTrunfo }
+          />))}
       </div>
     );
   }
