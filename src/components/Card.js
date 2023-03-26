@@ -12,10 +12,29 @@ export default class Card extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      cardId,
+      // removeDeleted,
     } = this.props;
 
     const checkTrunfo = (isTrunfo) => {
       if (isTrunfo) { return <h2 data-testid="trunfo-card">Super Trunfo</h2>; }
+    };
+
+    const checkIfKey = (isKey) => {
+      const maxKeys = '999';
+      if (isKey !== Number(maxKeys)) {
+        return (
+          <button
+            type="button"
+            name="remover"
+            data-testid="delete-button"
+            // disabled={ isSaveButtonDisabled }
+            // onClick={ ]removeDeleted(cardId) }
+          >
+            Excluir
+          </button>
+        );
+      }
     };
 
     return (
@@ -28,6 +47,7 @@ export default class Card extends React.Component {
         <h5 data-testid="attr3-card">{cardAttr3}</h5>
         <h3 data-testid="rare-card">{cardRare}</h3>
         {checkTrunfo(cardTrunfo)}
+        {checkIfKey(cardId)}
       </div>
     );
   }
@@ -42,4 +62,6 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  cardId: PropTypes.number.isRequired,
+  // removeDeleted: PropTypes.func.isRequired,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import Deck from './components/Deck';
 
 class App extends React.Component {
   constructor() {
@@ -74,19 +75,21 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      removeDeleted,
       // hasTrunfo,
       // deck,
     } = state;
 
     const cardObj = {
-      cardName: [cardName],
-      cardDescription: [cardDescription],
-      cardAttr1: [cardAttr1],
-      cardAttr2: [cardAttr2],
-      cardAttr3: [cardAttr3],
-      cardImage: [cardImage],
-      cardRare: [cardRare],
-      cardTrunfo: [cardTrunfo],
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      removeDeleted,
     };
 
     const checkTrunfo = () => {
@@ -96,9 +99,8 @@ class App extends React.Component {
         });
         return true;
       }
+      return false;
     };
-
-    // const hadTrunfo = checkTrunfo();
 
     this.setState((prevState) => ({
       deck: [...prevState.deck, cardObj],
@@ -115,6 +117,20 @@ class App extends React.Component {
     // console.log(prevState.hasTrunfo);
   };
 
+  removeDeleted = () => {
+    const { deck } = this.state;
+    const { cardId } = this.props;
+    const idOfCard = cardId;
+    // this.props.apagarNota(index);
+    //   this.setState(() => ({
+    //     deck: deck.splice(cardIdP, 1),
+    //   }));
+    // };
+    this.setState(() => ({
+      deck: deck.splice(idOfCard, 1),
+    }));
+  };
+
   render() {
     const { state } = this;
     const { cardName,
@@ -129,6 +145,7 @@ class App extends React.Component {
       deck,
     } = state;
     const isSaveDisabled = this.validateSave(this);
+    const maxKey = 999;
 
     return (
       <div className="mainContainer">
@@ -149,6 +166,8 @@ class App extends React.Component {
             onSaveButtonClick={ this.newCardObj }
           />
           <Card
+            key="999"
+            cardId={ Number(maxKey) }
             cardName={ cardName }
             cardDescription={ cardDescription }
             cardAttr1={ cardAttr1 }
@@ -157,31 +176,13 @@ class App extends React.Component {
             cardImage={ cardImage }
             cardRare={ cardRare }
             cardTrunfo={ cardTrunfo }
+            removeDeleted={ this.removeDeleted }
           />
         </div>
-        <h3>Meu Deck:</h3>
-        {/* <Card
-            cardName={ cardName }
-            cardDescription={ cardDescription }
-            cardAttr1={ cardAttr1 }
-            cardAttr2={ cardAttr2 }
-            cardAttr3={ cardAttr3 }
-            cardImage={ cardImage }
-            cardRare={ cardRare }
-            cardTrunfo={ cardTrunfo }
-          /> */}
-        {deck.map((cardProps) => (
-          <Card
-            key={ cardProps.cardName }
-            cardName={ cardProps.cardName }
-            cardDescription={ cardProps.cardDescription }
-            cardAttr1={ cardProps.cardAttr1 }
-            cardAttr2={ cardProps.cardAttr2 }
-            cardAttr3={ cardProps.cardAttr3 }
-            cardImage={ cardProps.cardImage }
-            cardRare={ cardProps.cardRare }
-            cardTrunfo={ cardProps.cardTrunfo }
-          />))}
+        <Deck
+          deck={ deck }
+          removeDeleted={ this.removeDeleted }
+        />
       </div>
     );
   }
